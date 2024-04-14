@@ -1,0 +1,808 @@
+swagger: "2.0"
+info:
+  title: Course - Protobuf & gRPC
+  version: 1.0.0
+tags:
+  - name: ResiliencyService
+  - name: ResiliencyWithMetadataService
+  - name: HelloService
+  - name: BankService
+    description: Documentation for bank service
+host: localhost:8081
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /api/resiliency/v1/bidirectional_streaming:
+    get:
+      operationId: ResiliencyService_BiDirectionalResiliency
+      responses:
+        "200":
+          description: A successful response.(streaming responses)
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: '#/definitions/resiliencyResiliencyResponse'
+              error:
+                $ref: '#/definitions/rpcStatus'
+            title: Stream result of resiliencyResiliencyResponse
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: min_delay_second
+          description: Minimum delay in second (inclusive)
+          in: query
+          required: false
+          type: integer
+          format: integer
+        - name: max_delay_second
+          description: Maximum delay in second (inclusive)
+          in: query
+          required: false
+          type: integer
+          format: integer
+        - name: status_codes
+          description: Array of gRPC status codes to be generated (numeric)
+          in: query
+          required: false
+          type: array
+          items:
+            type: integer
+            format: int64
+          collectionFormat: multi
+      tags:
+        - ResiliencyService
+  /api/resiliency/v1/client_streaming:
+    get:
+      operationId: ResiliencyService_ClientStreamingResiliency
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/resiliencyResiliencyResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: min_delay_second
+          description: Minimum delay in second (inclusive)
+          in: query
+          required: false
+          type: integer
+          format: integer
+        - name: max_delay_second
+          description: Maximum delay in second (inclusive)
+          in: query
+          required: false
+          type: integer
+          format: integer
+        - name: status_codes
+          description: Array of gRPC status codes to be generated (numeric)
+          in: query
+          required: false
+          type: array
+          items:
+            type: integer
+            format: int64
+          collectionFormat: multi
+      tags:
+        - ResiliencyService
+  /api/resiliency/v1/metadata/bidirectional_streaming:
+    post:
+      summary: Summary for BiDirectionalResiliencyWithMetadata
+      description: Description for BiDirectionalResiliencyWithMetadata
+      operationId: ResiliencyWithMetadataService_BiDirectionalResiliencyWithMetadata
+      responses:
+        "200":
+          description: Sample response, 200 when ...
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: '#/definitions/resiliencyResiliencyResponse'
+              error:
+                $ref: '#/definitions/rpcStatus'
+            title: Stream result of resiliencyResiliencyResponse
+        "400":
+          description: Sample response, 400 when ..
+          schema: {}
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          description: ' (streaming inputs)'
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/resiliencyResiliencyRequest'
+      tags:
+        - ResiliencyWithMetadataService
+  /api/resiliency/v1/metadata/client_streaming:
+    post:
+      summary: Summary for ClientStreamingResiliencyWithMetadata
+      description: Description for ClientStreamingResiliencyWithMetadata
+      operationId: ResiliencyWithMetadataService_ClientStreamingResiliencyWithMetadata
+      responses:
+        "200":
+          description: Sample response, 200 when ...
+          schema:
+            $ref: '#/definitions/resiliencyResiliencyResponse'
+        "400":
+          description: Sample response, 400 when ..
+          schema: {}
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          description: ' (streaming inputs)'
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/resiliencyResiliencyRequest'
+      tags:
+        - ResiliencyWithMetadataService
+  /api/resiliency/v1/metadata/server_streaming:
+    post:
+      summary: Summary for ServerStreamingResiliencyWithMetadata
+      description: Description for ServerStreamingResiliencyWithMetadata
+      operationId: ResiliencyWithMetadataService_ServerStreamingResiliencyWithMetadata
+      responses:
+        "200":
+          description: Sample response, 200 when ...
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: '#/definitions/resiliencyResiliencyResponse'
+              error:
+                $ref: '#/definitions/rpcStatus'
+            title: Stream result of resiliencyResiliencyResponse
+        "400":
+          description: Sample response, 400 when ..
+          schema: {}
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/resiliencyResiliencyRequest'
+      tags:
+        - ResiliencyWithMetadataService
+  /api/resiliency/v1/metadata/unary:
+    post:
+      summary: |-
+        This comment will be generated as OpenAPI summary
+        for UnaryResiliencyWithMetadata
+      operationId: ResiliencyWithMetadataService_UnaryResiliencyWithMetadata
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/resiliencyResiliencyResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/resiliencyResiliencyRequest'
+      tags:
+        - ResiliencyWithMetadataService
+  /api/resiliency/v1/server_streaming/{min_delay_second}/{max_delay_second}:
+    get:
+      operationId: ResiliencyService_ServerStreamingResiliency
+      responses:
+        "200":
+          description: A successful response.(streaming responses)
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: '#/definitions/resiliencyResiliencyResponse'
+              error:
+                $ref: '#/definitions/rpcStatus'
+            title: Stream result of resiliencyResiliencyResponse
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: min_delay_second
+          description: Minimum delay in second (inclusive)
+          in: path
+          required: true
+          type: integer
+          format: int32
+        - name: max_delay_second
+          description: Maximum delay in second (inclusive)
+          in: path
+          required: true
+          type: integer
+          format: int32
+        - name: status_codes
+          description: Array of gRPC status codes to be generated (numeric)
+          in: query
+          required: false
+          type: array
+          items:
+            type: integer
+            format: int64
+          collectionFormat: multi
+      tags:
+        - ResiliencyService
+  /api/resiliency/v1/unary:
+    get:
+      operationId: ResiliencyService_UnaryResiliency
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/resiliencyResiliencyResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: min_delay_second
+          description: Minimum delay in second (inclusive)
+          in: query
+          required: false
+          type: integer
+          format: integer
+        - name: max_delay_second
+          description: Maximum delay in second (inclusive)
+          in: query
+          required: false
+          type: integer
+          format: integer
+        - name: status_codes
+          description: Array of gRPC status codes to be generated (numeric)
+          in: query
+          required: false
+          type: array
+          items:
+            type: integer
+            format: int64
+          collectionFormat: multi
+      tags:
+        - ResiliencyService
+  /bank/v1/account:
+    post:
+      operationId: BankService_CreateAccount
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/bankCreateAccountResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/bankCreateAccountRequest'
+      tags:
+        - BankService
+  /bank/v1/account/current_balance:
+    get:
+      summary: Summary for GetCurrentBalance
+      description: Description for GetCurrentBalance
+      operationId: BankService_GetCurrentBalance
+      responses:
+        "200":
+          description: Return current account balance
+          schema:
+            $ref: '#/definitions/bankCurrentBalanceResponse'
+        "400":
+          description: Returned when given account number is not exists
+          schema: {}
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: account_number
+          description: Account number to get the balance
+          in: query
+          required: false
+          type: string
+      tags:
+        - BankService
+  /bank/v1/exchange_rates:
+    get:
+      summary: Summary for FetchExchangeRates
+      description: Description for FetchExchangeRates
+      operationId: BankService_FetchExchangeRates
+      responses:
+        "200":
+          description: Stream exchange rate for given currency pair
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: '#/definitions/bankExchangeRateResponse'
+              error:
+                $ref: '#/definitions/rpcStatus'
+            title: Stream result of bankExchangeRateResponse
+        "400":
+          description: Returned when given currency pair is not exists
+          schema: {}
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: from_currency
+          description: Exchange rate from currency
+          in: query
+          required: false
+          type: string
+        - name: to_currency
+          description: Exchange rate to currency
+          in: query
+          required: false
+          type: string
+      tags:
+        - BankService
+  /bank/v1/transaction/summarize:
+    post:
+      operationId: BankService_SummarizeTransactions
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/bankTransactionSummary'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          description: ' (streaming inputs)'
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/bankTransaction'
+      tags:
+        - BankService
+  /bank/v1/transaction/transfer_multiple:
+    post:
+      operationId: BankService_TransferMultiple
+      responses:
+        "200":
+          description: A successful response.(streaming responses)
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: '#/definitions/bankTransferResponse'
+              error:
+                $ref: '#/definitions/rpcStatus'
+            title: Stream result of bankTransferResponse
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          description: ' (streaming inputs)'
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/bankTransferRequest'
+      tags:
+        - BankService
+  /hello.HelloService/SayHello:
+    post:
+      operationId: HelloService_SayHello
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/helloHelloResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/helloHelloRequest'
+      tags:
+        - HelloService
+  /hello.HelloService/SayHelloContinuous:
+    post:
+      operationId: HelloService_SayHelloContinuous
+      responses:
+        "200":
+          description: A successful response.(streaming responses)
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: '#/definitions/helloHelloResponse'
+              error:
+                $ref: '#/definitions/rpcStatus'
+            title: Stream result of helloHelloResponse
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          description: ' (streaming inputs)'
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/helloHelloRequest'
+      tags:
+        - HelloService
+  /hello.HelloService/SayHelloToEveryone:
+    post:
+      operationId: HelloService_SayHelloToEveryone
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/helloHelloResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          description: ' (streaming inputs)'
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/helloHelloRequest'
+      tags:
+        - HelloService
+  /hello.HelloService/SayManyHellos:
+    post:
+      operationId: HelloService_SayManyHellos
+      responses:
+        "200":
+          description: A successful response.(streaming responses)
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: '#/definitions/helloHelloResponse'
+              error:
+                $ref: '#/definitions/rpcStatus'
+            title: Stream result of helloHelloResponse
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/helloHelloRequest'
+      tags:
+        - HelloService
+definitions:
+  bankCreateAccountRequest:
+    type: object
+    properties:
+      account_name:
+        type: string
+      currency:
+        type: string
+      initial_deposit_amount:
+        type: number
+        format: double
+  bankCreateAccountResponse:
+    type: object
+    properties:
+      account_uuid:
+        type: string
+  bankCurrentBalanceResponse:
+    type: object
+    properties:
+      amount:
+        type: number
+        format: double
+        example: 2593
+        description: Account's current balance
+      current_date:
+        $ref: '#/definitions/typeDate'
+        description: Current date
+    description: Description for CurrentBalanceResponse
+  bankExchangeRateResponse:
+    type: object
+    properties:
+      from_currency:
+        type: string
+        example: USD
+        description: Exchange rate from currency
+      to_currency:
+        type: string
+        example: IDR
+        description: Exchange rate to currency
+      rate:
+        type: number
+        format: double
+        description: Exchange rate at particular timestamp
+      timestamp:
+        type: string
+        description: Current timestamp
+  bankTransaction:
+    type: object
+    properties:
+      account_number:
+        type: string
+      type:
+        $ref: '#/definitions/bankTransactionType'
+      amount:
+        type: number
+        format: double
+      timestamp:
+        $ref: '#/definitions/typeDateTime'
+      notes:
+        type: string
+  bankTransactionSummary:
+    type: object
+    properties:
+      account_number:
+        type: string
+      sum_amount_in:
+        type: number
+        format: double
+      sum_amount_out:
+        type: number
+        format: double
+      sum_total:
+        type: number
+        format: double
+      transaction_date:
+        $ref: '#/definitions/typeDate'
+  bankTransactionType:
+    type: string
+    enum:
+      - TRANSACTION_TYPE_UNSPECIFIED
+      - TRANSACTION_TYPE_IN
+      - TRANSACTION_TYPE_OUT
+    default: TRANSACTION_TYPE_UNSPECIFIED
+  bankTransferRequest:
+    type: object
+    properties:
+      from_account_number:
+        type: string
+      to_account_number:
+        type: string
+      currency:
+        type: string
+      amount:
+        type: number
+        format: double
+  bankTransferResponse:
+    type: object
+    properties:
+      from_account_number:
+        type: string
+      to_account_number:
+        type: string
+      currency:
+        type: string
+      amount:
+        type: number
+        format: double
+      status:
+        $ref: '#/definitions/bankTransferStatus'
+      timestamp:
+        $ref: '#/definitions/typeDateTime'
+  bankTransferStatus:
+    type: string
+    enum:
+      - TRANSFER_STATUS_UNSPECIFIED
+      - TRANSFER_STATUS_SUCCESS
+      - TRANSFER_STATUS_FAILED
+    default: TRANSFER_STATUS_UNSPECIFIED
+  helloHelloRequest:
+    type: object
+    properties:
+      name:
+        type: string
+      age:
+        type: integer
+        format: int64
+  helloHelloResponse:
+    type: object
+    properties:
+      greet:
+        type: string
+  protobufAny:
+    type: object
+    properties:
+      '@type':
+        type: string
+    additionalProperties: {}
+  resiliencyResiliencyRequest:
+    type: object
+    properties:
+      min_delay_second:
+        type: integer
+        format: integer
+        example: 2
+        description: Minimum delay in second (inclusive)
+      max_delay_second:
+        type: integer
+        format: integer
+        example: 7
+        description: Maximum delay in second (inclusive)
+      status_codes:
+        type: array
+        items:
+          type: integer
+          format: int64
+        description: Array of gRPC status codes to be generated (numeric)
+  resiliencyResiliencyResponse:
+    type: object
+    properties:
+      dummy_string:
+        type: string
+        description: Dummy string for response
+  rpcStatus:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      details:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/protobufAny'
+  typeDate:
+    type: object
+    properties:
+      year:
+        type: integer
+        format: int32
+        description: |-
+          Year of the date. Must be from 1 to 9999, or 0 to specify a date without
+          a year.
+      month:
+        type: integer
+        format: int32
+        description: |-
+          Month of a year. Must be from 1 to 12, or 0 to specify a year without a
+          month and day.
+      day:
+        type: integer
+        format: int32
+        description: |-
+          Day of a month. Must be from 1 to 31 and valid for the year and month, or 0
+          to specify a year by itself or a year and month where the day isn't
+          significant.
+    description: |-
+      * A full date, with non-zero year, month, and day values
+      * A month and day value, with a zero year, such as an anniversary
+      * A year on its own, with zero month and day values
+      * A year and month value, with a zero day, such as a credit card expiration
+      date
+
+      Related types are [google.type.TimeOfDay][google.type.TimeOfDay] and
+      `google.protobuf.Timestamp`.
+    title: |-
+      Represents a whole or partial calendar date, such as a birthday. The time of
+      day and time zone are either specified elsewhere or are insignificant. The
+      date is relative to the Gregorian Calendar. This can represent one of the
+      following:
+  typeDateTime:
+    type: object
+    properties:
+      year:
+        type: integer
+        format: int32
+        description: |-
+          Optional. Year of date. Must be from 1 to 9999, or 0 if specifying a
+          datetime without a year.
+      month:
+        type: integer
+        format: int32
+        description: Required. Month of year. Must be from 1 to 12.
+      day:
+        type: integer
+        format: int32
+        description: |-
+          Required. Day of month. Must be from 1 to 31 and valid for the year and
+          month.
+      hours:
+        type: integer
+        format: int32
+        description: |-
+          Required. Hours of day in 24 hour format. Should be from 0 to 23. An API
+          may choose to allow the value "24:00:00" for scenarios like business
+          closing time.
+      minutes:
+        type: integer
+        format: int32
+        description: Required. Minutes of hour of day. Must be from 0 to 59.
+      seconds:
+        type: integer
+        format: int32
+        description: |-
+          Required. Seconds of minutes of the time. Must normally be from 0 to 59. An
+          API may allow the value 60 if it allows leap-seconds.
+      nanos:
+        type: integer
+        format: int32
+        description: |-
+          Required. Fractions of seconds in nanoseconds. Must be from 0 to
+          999,999,999.
+      utcOffset:
+        type: string
+        description: |-
+          UTC offset. Must be whole seconds, between -18 hours and +18 hours.
+          For example, a UTC offset of -4:00 would be represented as
+          { seconds: -14400 }.
+      timeZone:
+        $ref: '#/definitions/typeTimeZone'
+        description: Time zone.
+    description: |-
+      Represents civil time (or occasionally physical time).
+
+      This type can represent a civil time in one of a few possible ways:
+
+       * When utc_offset is set and time_zone is unset: a civil time on a calendar
+         day with a particular offset from UTC.
+       * When time_zone is set and utc_offset is unset: a civil time on a calendar
+         day in a particular time zone.
+       * When neither time_zone nor utc_offset is set: a civil time on a calendar
+         day in local time.
+
+      The date is relative to the Proleptic Gregorian Calendar.
+
+      If year is 0, the DateTime is considered not to have a specific year. month
+      and day must have valid, non-zero values.
+
+      This type may also be used to represent a physical time if all the date and
+      time fields are set and either case of the `time_offset` oneof is set.
+      Consider using `Timestamp` message for physical time instead. If your use
+      case also would like to store the user's timezone, that can be done in
+      another field.
+
+      This type is more flexible than some applications may want. Make sure to
+      document and validate your application's limitations.
+  typeTimeZone:
+    type: object
+    properties:
+      id:
+        type: string
+        description: IANA Time Zone Database time zone, e.g. "America/New_York".
+      version:
+        type: string
+        description: Optional. IANA Time Zone Database version number, e.g. "2019a".
+    description: |-
+      Represents a time zone from the
+      [IANA Time Zone Database](https://www.iana.org/time-zones).

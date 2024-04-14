@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package payment;
+
+import "proto/transaction/cart.proto";
+
+// replace this with your own github username and repo
+// github.com/<username>/<repo>/protogen/go/...
+option go_package = "github.com/timpamungkas/my-grpc-proto/protogen/go/payment";
+
+message PaymentRequest {
+  transaction.Cart cart = 1;
+  string currency = 2;
+  uint32 total_amount = 3 [json_name = "total_amount"];
+  uint32 tax = 4;
+  string promo_code = 16 [json_name = "promo_code"];
+}
+
+message PaymentResponse {
+  string payment_uuid = 1 [json_name = "payment_uuid"];
+  bool confirmed = 2;
+}

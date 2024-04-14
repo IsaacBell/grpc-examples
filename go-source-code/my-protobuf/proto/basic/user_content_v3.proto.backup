@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "my-protobuf/protogen/basic";
+
+message UserContent {
+  reserved 3,5;
+
+  uint32 user_content_id = 1 [json_name = "user_content_id"];
+  string slug = 2;
+  // string title = 3;
+  string html_content = 4 [json_name = "html_content"];
+  // uint32 author_id = 5 [json_name = "author_id"];
+  string category = 6;
+  string sub_category = 7 [json_name = "sub_category"];
+}
